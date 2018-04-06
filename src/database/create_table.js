@@ -3,6 +3,7 @@ const mysql = require('mysql');
 /*
     Função para criar a tabela no banco
 */
+
 function createTable(conn) {
     const sql = "CREATE TABLE IF NOT EXISTS contatos (\n" +
         "id int NOT NULL AUTO_INCREMENT,\n" +
@@ -19,7 +20,7 @@ function createTable(conn) {
     });
 }
 
-module.exports = function execSQLQuery(sqlQry, res) {
+function execSQLQuery(sqlQry, res) {
     const connection = mysql.createConnection({
         host: 'localhost',
         port: 3306,
@@ -32,9 +33,16 @@ module.exports = function execSQLQuery(sqlQry, res) {
         if (error) {
             res.json(error);
         } else {
-            res.json(results);
+            res.json({
+                    status: 200, 
+                    msg: "Busca realizada com sucesso", 
+                    result: results
+                });
         }
+        
         connection.end();
         console.log('Comando SQL executado com sucesso!');
     });
 }
+
+exports.execSQLQuery = execSQLQuery;

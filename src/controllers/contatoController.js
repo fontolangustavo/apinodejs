@@ -1,8 +1,9 @@
-const db = require('../database/create_table');
+var db = require('../database/create_table');
 
-exports.get = (req, res, next) => {    
-    db.execSQLQuery('SELECT * FROM contatos', res);
-    res.status(200).send('Requisição GET recebida com sucesso!');
+exports.get = function(req, res, next) {    
+    db.execSQLQuery("SELECT * FROM contatos", res);
+    
+    //res.status(200).send('Requisição GET recebida com sucesso!');
 };
 
 exports.post = (req, res, next) => {
