@@ -20,7 +20,8 @@ function createTable(conn) {
     });
 }
 
-function execSQLQuery(sqlQry, res) {
+ function execSQLQuery(sqlQry, param, callback) {
+    console.log(param);
     const connection = mysql.createConnection({
         host: 'localhost',
         port: 3306,
@@ -29,19 +30,9 @@ function execSQLQuery(sqlQry, res) {
         database: 'node'
     });
 
-    connection.query(sqlQry, function (error, results, fields) {
-        if (error) {
-            res.json(error);
-        } else {
-            res.json({
-                    status: 200, 
-                    msg: "Busca realizada com sucesso", 
-                    result: results
-                });
-        }
-        
+    connection.query(sqlQry, param, (err, result) =>{
         connection.end();
-        console.log('Comando SQL executado com sucesso!');
+        return callback(result);
     });
 }
 
