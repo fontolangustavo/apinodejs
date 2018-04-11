@@ -1,8 +1,21 @@
-const mysql = require('mysql');
+var mysql = require('mysql');
 
 /*
     Função para criar a tabela no banco
 */
+
+var connection = mysql.createConnection({
+    host: process.env.host,
+    port: process.env.port,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
+});
+
+//connection.connect();
+
+module.exports = connection;
+/*
 
 function createTable(conn) {
     const sql = "CREATE TABLE IF NOT EXISTS contatos (\n" +
@@ -21,19 +34,25 @@ function createTable(conn) {
 }
 
  function execSQLQuery(sqlQry, param, callback) {
-    console.log(param);
+    console.log(process.env.database);
+    console.log(process.env.host);
     const connection = mysql.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: '',
-        database: 'node'
+        host: process.env.host,
+        port: process.env.port,
+        user: process.env.user,
+        password: process.env.password,
+        database: process.env.database
     });
 
     connection.query(sqlQry, param, (err, result) =>{
         connection.end();
+        if (err != null) {
+            return callback(err);
+        }
+
         return callback(result);
     });
 }
+*/
+//module.exports = execSQLQuery;
 
-exports.execSQLQuery = execSQLQuery;

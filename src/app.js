@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const app = express();
 
+// Dotenv
+require('dotenv').config();
+
 //Rotas
 const index = require('./routes/index');
 const contatoRoute = require('./routes/contatoRoute');
